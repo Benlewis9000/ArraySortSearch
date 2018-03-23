@@ -7,6 +7,9 @@ public class Main {
 
     public static void main(String[] args) {
 
+        /*
+                Now working on hashmap branch
+         */
 
         Sorter sorter = new Sorter();
         Generator generator = new Generator();
