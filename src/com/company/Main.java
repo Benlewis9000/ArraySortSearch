@@ -16,7 +16,7 @@ public class Main {
 
         int problemSize = 10;
 
-        int[] unorderedList = generator.generateProblem(problemSize);
+        int[] unorderedList = generator.generateProblemArray(problemSize);
         System.out.println("Problem set:\n" + Arrays.toString(unorderedList));
 
         int[] orderedList = sorter.bubbleSort(unorderedList);
