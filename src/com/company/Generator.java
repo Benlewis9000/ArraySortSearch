@@ -8,7 +8,7 @@ public class Generator {
 
     }
 
-    public int[] generateProblem (int problemSize) {
+    public int[] generateProblemArray (int problemSize) {
 
         int[] problemSet = new int[problemSize];
 
