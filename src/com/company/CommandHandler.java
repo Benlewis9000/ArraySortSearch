@@ -80,7 +80,7 @@ public class CommandHandler {
                 continue;
             }
 
-            se.search(this.getOrderedList(), test);
+            se.searchArray(this.getOrderedList(), test);
             run = false;
 
         }

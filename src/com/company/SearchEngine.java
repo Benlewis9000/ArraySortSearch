@@ -9,7 +9,12 @@ public class SearchEngine {
 
     }
 
-    public void search(int[] list, int target){
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /*
+        Search Array
+     */
+    public void searchArray(int[] list, int target){
 
         System.out.println("Searching for: " + target);
 
@@ -50,19 +55,19 @@ public class SearchEngine {
 
             if (hit == target){
                 //System.out.println("First found " + target + " at index " + index);
-                System.out.println("All indexes of target: " + Arrays.toString(this.findSpan(list, index, target)));
+                System.out.println("All indexes of target: " + Arrays.toString(this.findSpanArray(list, index, target)));
                 System.out.println("Array and Index Markup:\n" + Arrays.toString(list));
                 this.printIndexNumbers(list);
                 break;
             }
             else if (hit > target){
 
-                list = this.chopLow(list, index);
+                list = this.chopLowArray(list, index);
 
             }
             else if (hit < target){
 
-                list = this.chopHigh(list, index);
+                list = this.chopHighArray(list, index);
 
             }
 
@@ -72,7 +77,7 @@ public class SearchEngine {
 
     }
 
-    public int[] findSpan(int[] list, int index, int target){
+    public int[] findSpanArray(int[] list, int index, int target){
 
         ArrayList<Integer> spanIndexes = new ArrayList<>();
 
@@ -98,11 +103,11 @@ public class SearchEngine {
 
         Sorter sorter = new Sorter();
 
-        return sorter.bubbleSort(toIntArray(spanIndexes));
+        return sorter.bubbleSortArray(toIntArray(spanIndexes));
 
     }
 
-    private int[] chopLow (int[] list, int index){
+    private int[] chopLowArray (int[] list, int index){
 
         //System.out.println("Low Chop");
 
@@ -116,7 +121,7 @@ public class SearchEngine {
 
     }
 
-    private int[] chopHigh (int[] list, int index){
+    private int[] chopHighArray (int[] list, int index){
 
         //System.out.println("High Chop");
 
@@ -129,6 +134,10 @@ public class SearchEngine {
         return toIntArray(returnAL);
 
     }
+
+    /*
+        Utilities
+     */
 
     private static int[] toIntArray(ArrayList<Integer> aL){
 
