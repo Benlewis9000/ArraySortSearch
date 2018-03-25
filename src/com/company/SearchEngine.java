@@ -2,6 +2,7 @@ package com.company;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 
 public class SearchEngine {
 
@@ -9,11 +10,150 @@ public class SearchEngine {
 
     }
 
+    /*
+        Search Map
+     */
+
+    public void searchMap(HashMap<Integer, Pair> map, int target){
+
+        System.out.println("Searching for: " + target);
+
+        int index = map.size()/2;
+
+        while (true) {
+            //0, 0, 7, 9, 4, 5, 2, 1, 8, 0, test
+
+            if (map.isEmpty()){
+                System.out.println("Target could not be found.");
+                break;
+            }
+
+            // Maybe use a hashset? The chopped array isn't garunteed to start at 0
+            //else if (map.size() == 1 && map.get(0).getValue() != target){
+            else if (map.size() == 1 && map.get(0 /*map.keySet().toArray()[0]*/).getValue() != target){
+                System.out.println("Target could not be found.");
+                break;
+            }
+
+            else if (index > map.size()){
+                index = index/2;
+                continue;
+            }
+
+            // Not a garunteed value
+            System.out.println("Index: " + index);
+            //for (Pair p : map.values()){
+            //    System.out.println(p.getIndex()+", "+p.getValue());
+            //}
+            int hit = map.get(index).getValue();
+
+            // TODO
+            if (hit == target){
+                System.out.println("First found " + target + " at:" +
+                        "\nChop map: " + index +
+                        "\nOG map: " + map.get(index).getIndex());
+                System.out.println("All original indexes of target: ");
+
+                ArrayList<Pair> indexSpan = this.findSpanMap(map, index, target);
+
+                for (Pair p : indexSpan){
+                    System.out.print(p.getIndex() + ", ");
+                }
+
+                break;
+            }
+            else if (hit > target){
+
+                map = this.chopLowMap(map, index);
+
+            }
+            else if (hit < target){
+
+                map = this.chopHighMap(map, index);
+
+            }
+
+            index = map.size()/2;
+
+            //for (Pair p : findSpanMap(map, index, target)){
+            //    System.out.println(p.getIndex() + " : " + p.getValue());
+            //}
+
+        }
+
+    }
+
+    public ArrayList<Pair> findSpanMap(HashMap<Integer, Pair> map, int index, int target){
+
+        //HashMap<Integer, Pair> spanIndexes = new HashMap<>();
+        ArrayList<Pair> spanIndexes = new ArrayList<>();
+
+        spanIndexes.add(map.get(index));
+
+        // Search before
+        if (!(index == 0)) {
+            for (int i = 1; map.get(index -1).getValue() == target; i++) {
+                //System.out.println("before: " + i);
+                spanIndexes.add(map.get(index - 1));
+                if (index - i == 0) break;
+            }
+        }
+
+        // Search after
+        if (!(index == map.size() - 1)) {
+            for (int i = 1; map.get(index + i).getValue() == target; i++) {
+                //System.out.println("after: " + i);
+                spanIndexes.add(map.get(index + i));
+                if (index + i == map.size() - 1) break;
+            }
+        }
+
+        Sorter sorter = new Sorter();
+
+        //return sorter.bubbleSortMap();
+        return spanIndexes;
+
+    }
+
+    /*
+        TODO:
+        Is a chop really necessary?
+        Try a boolean that either halves index, or halve + OG index (index = index + index/2) <- acc this would not work
+     */
+    private HashMap<Integer, Pair> chopLowMap (HashMap<Integer, Pair> map, int index){
+
+        //System.out.println("Low Chop");
+
+        HashMap<Integer, Pair> returnMap = new HashMap<>();
+
+        for (int i = 0; i < index; i++){
+            returnMap.put(i, map.get(i));
+        }
+
+        return returnMap;
+
+    }
+
+    private HashMap<Integer, Pair> chopHighMap (HashMap<Integer, Pair> map, int index){
+
+        //System.out.println("Low Chop");
+
+        HashMap<Integer, Pair> returnMap = new HashMap<>();
+
+        int base = 0;
+        for (int i = index; i < map.size(); i++, base++){
+            returnMap.put(base, map.get(i));
+        }
+
+        return returnMap;
+
+    }
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /*
         Search Array
      */
+
     public void searchArray(int[] list, int target){
 
         System.out.println("Searching for: " + target);
@@ -57,7 +197,7 @@ public class SearchEngine {
                 //System.out.println("First found " + target + " at index " + index);
                 System.out.println("All indexes of target: " + Arrays.toString(this.findSpanArray(list, index, target)));
                 System.out.println("Array and Index Markup:\n" + Arrays.toString(list));
-                this.printIndexNumbers(list);
+                this.printArrayIndexNumbers(list);
                 break;
             }
             else if (hit > target){
@@ -150,7 +290,7 @@ public class SearchEngine {
         return array;
     }
 
-    private void printIndexNumbers (int[] list){
+    private void printArrayIndexNumbers (int[] list){
 
         for (int i = 0; i < list.length; i++) {
             list[i] = i;
