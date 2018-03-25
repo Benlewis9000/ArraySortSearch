@@ -15,7 +15,7 @@ public class Main {
         Generator generator = new Generator();
 
         int problemSize = 50;
-        int problemRange = 100;
+        int problemRange = 10;
 
         /*
         int[] unorderedList = generator.generateProblemArray(problemSize);
@@ -43,9 +43,9 @@ public class Main {
         CommandHandler cmd = new CommandHandler(unorderedList, orderedList);
         */
 
-        //SearchEngine searchEngine = new SearchEngine();
+        SearchEngine searchEngine = new SearchEngine();
 
-        //searchEngine.search(orderedList, 1);
+        searchEngine.searchMap(orderedMap, 1);
 
     }
 }
