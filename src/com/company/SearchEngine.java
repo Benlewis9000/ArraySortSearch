@@ -1,12 +1,37 @@
 package com.company;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
+import com.sun.org.apache.bcel.internal.generic.GOTO;
+
+import java.awt.*;
+import java.util.*;
 
 public class SearchEngine {
 
     public SearchEngine(){
+
+    }
+
+    public int aquireTarget(){
+
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("What number would you like to search for?");
+
+        int target;
+
+        while(true) {
+
+            String input = scanner.nextLine();
+
+            try {
+                target = Integer.parseInt(input);
+                break;
+            } catch (NumberFormatException ex){
+                System.out.println("Please enter a number:");
+            }
+        }
+
+        return target;
 
     }
 
@@ -55,8 +80,15 @@ public class SearchEngine {
                 System.out.println("All original indexes of target: ");
 
                 ArrayList<Pair> indexSpan = this.findSpanMap(map, index, target);
+                HashSet<Pair> indexSet = new HashSet<>();
+
 
                 for (Pair p : indexSpan){
+                    indexSet.add(p);
+                    System.out.print(p.getIndex() + ", ");
+                }
+                System.out.println();
+                for (Pair p : indexSet){
                     System.out.print(p.getIndex() + ", ");
                 }
 
@@ -84,6 +116,8 @@ public class SearchEngine {
     }
 
     public ArrayList<Pair> findSpanMap(HashMap<Integer, Pair> map, int index, int target){
+
+
 
         //HashMap<Integer, Pair> spanIndexes = new HashMap<>();
         ArrayList<Pair> spanIndexes = new ArrayList<>();

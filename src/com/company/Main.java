@@ -8,13 +8,16 @@ public class Main {
     public static void main(String[] args) {
 
         /*
-                Now working on hashmap branch
+                TODO:
+                clean everything up
+                document
+                any chance for polymorphism in SearchEngine?
          */
 
         Sorter sorter = new Sorter();
         Generator generator = new Generator();
 
-        int problemSize = 50;
+        int problemSize = 11;
         int problemRange = 10;
 
         /*
@@ -32,10 +35,12 @@ public class Main {
 
         HashMap<Integer, Pair> orderedMap = sorter.bubbleSortMap(unorderedMap);
 
+
         System.out.println();
+        /*
         for (int i = 0; i < unorderedMap.size(); i++){
             System.out.print(orderedMap.get(i).getValue() + ", ");
-        }
+        }*/
 
         /*
         System.out.println("Sorted set:\n" + Arrays.toString(orderedList));
@@ -45,7 +50,9 @@ public class Main {
 
         SearchEngine searchEngine = new SearchEngine();
 
-        searchEngine.searchMap(orderedMap, 1);
+        int target = searchEngine.aquireTarget();
+
+        searchEngine.searchMap(orderedMap, target);
 
     }
 }
